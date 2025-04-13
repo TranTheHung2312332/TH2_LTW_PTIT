@@ -1,0 +1,10 @@
+.user-detail-link {
+    color: #333;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.user-detail-link:hover {
+    color: #000;
+    transform: scale(1.2);
+}
