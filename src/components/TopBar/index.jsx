@@ -25,6 +25,9 @@ function TopBar () {
       const user = models.userModel(location.pathname.slice(-24));
       context = `Photos of ${user.first_name} ${user.last_name}`;
     }
+    else{
+      context = 'home'
+    }
     
 
     return (
