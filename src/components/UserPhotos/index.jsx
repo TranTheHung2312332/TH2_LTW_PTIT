@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { List, ListItem, Paper } from "@mui/material";
 
 import "./styles.css";
@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom";
 import models from "../../modelData/models";
 
 import { Link } from 'react-router-dom'
+import fetchModel from "../../lib/fetchModelData";
 
 
 /**
@@ -13,7 +14,11 @@ import { Link } from 'react-router-dom'
  */
 function UserPhotos () {
     const user = useParams();
-    const photos = models.photoOfUserModel(user.userId);
+
+    const [photos, setPhotos] = useState([])
+    useEffect(() => {
+      fetchModel(`http://localhost:8081/api/photo/photosOfUser/${user.userId}`, setPhotos)
+    }, [])
 
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const dateTimeFormat = (datetime) => {
@@ -25,7 +30,7 @@ function UserPhotos () {
       return `${date} - ${time}`
     }
     
-    return (
+    return (  
       <List component="ul" className="photos">
         {photos && photos.map(photo => (
           <ListItem key={photo._id} className="photos-item">
